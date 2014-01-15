@@ -19,8 +19,13 @@ class Araw
   end
 end
 
-CSV.foreach("/Users/Tenorio/vermonster/exercises/deadlines.csv") do |row|
-  month, day = row
-  print Araw.new(month, day).display
+CSV.foreach("deadlines.csv") do |row|
+    if row == []
+      puts "You have no deadlines. Yay!"
+      break
+    else
+      month, day = row
+      print Araw.new(month, day).display
+    end
 end
 
