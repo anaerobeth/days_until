@@ -3,12 +3,13 @@ require 'csv'
 class Araw
   attr_accessor :event, :month, :day, :day_now, :day_target
 
-  def initialize(month, day, event)
+  def initialize(month, day, event, year=2014)
     @month = month
     @day = day
     @event = event
+    @year = year
     @day_now = Time.now.yday
-    @day_target = Time.local(2014, month, day).yday
+    @day_target = Time.local(year, month, day).yday
   end
 
   def count_day
@@ -20,7 +21,7 @@ class Araw
   end
 end
 
-CSV.foreach("/Users/Tenorio/vermonster/exercises/deadlines.csv") do |row|
+CSV.foreach("/path/to/deadlines.csv") do |row|
     if row == []
       puts "You have no deadlines. Yay!"
       break
