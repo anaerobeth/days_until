@@ -17,11 +17,12 @@ class Araw
   end
 
   def display
-    puts "#{count_day} days until #{month}/#{day} - #{event.to_s}"
+    puts "#{count_day.to_s.rjust(3,' ')} days until #{month.to_s.rjust(2,' ')}/#{day.to_s.rjust(2,'0')} - #{event.to_s}"
   end
 end
 
-CSV.foreach("/path/to/deadlines.csv") do |row|
+puts '---'
+CSV.foreach("/Users/Tenorio/vermonster/days_until/deadlines.csv") do |row|
     if row == []
       puts "You have no deadlines. Yay!"
       break
@@ -30,4 +31,4 @@ CSV.foreach("/path/to/deadlines.csv") do |row|
       Araw.new(month, day, event).display
     end
 end
-
+puts '---'
