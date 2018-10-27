@@ -1,23 +1,29 @@
 require 'csv'
 
-class Araw
+class Tracker
   attr_accessor :event, :month, :day, :day_now, :day_target
 
-  def initialize(month, day, event, year=2014)
+  def initialize(month, day, event, year)
     @month = month
     @day = day
     @event = event
-    @year = year
     @day_now = Time.now.yday
     @day_target = Time.local(year, month, day).yday
+    @year = year.to_i
   end
 
   def count_day
-    day_target - day_now
+    adjustment = if Date.leap?(@year)
+      366 * (@year - Time.now.year)
+    else
+      365 * (@year - Time.now.year)
+    end
+    day_target - day_now + adjustment
   end
 
   def display
-    puts "#{count_day.to_s.rjust(3,' ')} days until #{month.to_s.rjust(2,' ')}/#{day.to_s.rjust(2,'0')} - #{event.to_s}"
+    days = count_day.to_s.rjust(3,' ')
+    puts "#{days} days until #{month.to_s.rjust(2,' ')}/#{day.to_s.rjust(2,'0')} - #{event.to_s}"
   end
 end
 
